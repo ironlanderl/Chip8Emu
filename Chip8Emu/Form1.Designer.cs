@@ -50,32 +50,36 @@ namespace Chip8Emu
             // pcbSchermo
             // 
             this.pcbSchermo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pcbSchermo.Location = new System.Drawing.Point(12, 27);
+            this.pcbSchermo.Location = new System.Drawing.Point(14, 31);
+            this.pcbSchermo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pcbSchermo.Name = "pcbSchermo";
-            this.pcbSchermo.Size = new System.Drawing.Size(100, 100);
+            this.pcbSchermo.Size = new System.Drawing.Size(116, 115);
             this.pcbSchermo.TabIndex = 1;
             this.pcbSchermo.TabStop = false;
             // 
             // rtbLog
             // 
-            this.rtbLog.Location = new System.Drawing.Point(629, 338);
+            this.rtbLog.Location = new System.Drawing.Point(734, 390);
+            this.rtbLog.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.rtbLog.Name = "rtbLog";
-            this.rtbLog.Size = new System.Drawing.Size(159, 100);
+            this.rtbLog.Size = new System.Drawing.Size(185, 115);
             this.rtbLog.TabIndex = 2;
             this.rtbLog.Text = "";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(523, 394);
+            this.textBox1.Location = new System.Drawing.Point(610, 455);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(116, 23);
             this.textBox1.TabIndex = 4;
             // 
             // TestopCode
             // 
-            this.TestopCode.Location = new System.Drawing.Point(523, 415);
+            this.TestopCode.Location = new System.Drawing.Point(623, 479);
+            this.TestopCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.TestopCode.Name = "TestopCode";
-            this.TestopCode.Size = new System.Drawing.Size(75, 23);
+            this.TestopCode.Size = new System.Drawing.Size(88, 27);
             this.TestopCode.TabIndex = 5;
             this.TestopCode.Text = "button1";
             this.TestopCode.UseVisualStyleBackColor = true;
@@ -84,9 +88,10 @@ namespace Chip8Emu
             // lblDebug
             // 
             this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(626, 24);
+            this.lblDebug.Location = new System.Drawing.Point(730, 28);
+            this.lblDebug.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDebug.Name = "lblDebug";
-            this.lblDebug.Size = new System.Drawing.Size(35, 13);
+            this.lblDebug.Size = new System.Drawing.Size(38, 15);
             this.lblDebug.TabIndex = 6;
             this.lblDebug.Text = "label1";
             // 
@@ -101,7 +106,8 @@ namespace Chip8Emu
             this.testToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(933, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -117,22 +123,23 @@ namespace Chip8Emu
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(12, 415);
+            this.btnRefresh.Location = new System.Drawing.Point(14, 479);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.Size = new System.Drawing.Size(88, 27);
             this.btnRefresh.TabIndex = 8;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -141,9 +148,10 @@ namespace Chip8Emu
             // chkRefresh
             // 
             this.chkRefresh.AutoSize = true;
-            this.chkRefresh.Location = new System.Drawing.Point(13, 392);
+            this.chkRefresh.Location = new System.Drawing.Point(15, 452);
+            this.chkRefresh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkRefresh.Name = "chkRefresh";
-            this.chkRefresh.Size = new System.Drawing.Size(85, 17);
+            this.chkRefresh.Size = new System.Drawing.Size(91, 19);
             this.chkRefresh.TabIndex = 9;
             this.chkRefresh.Text = "AutoRefresh";
             this.chkRefresh.UseVisualStyleBackColor = true;
@@ -151,9 +159,10 @@ namespace Chip8Emu
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(297, 291);
+            this.button1.Location = new System.Drawing.Point(355, 276);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(88, 27);
             this.button1.TabIndex = 10;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -161,9 +170,9 @@ namespace Chip8Emu
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(933, 519);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chkRefresh);
             this.Controls.Add(this.btnRefresh);
@@ -174,6 +183,7 @@ namespace Chip8Emu
             this.Controls.Add(this.pcbSchermo);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pcbSchermo)).EndInit();

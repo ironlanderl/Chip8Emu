@@ -157,7 +157,6 @@ namespace Chip8Emu
                             }
                         }
                     }
-                    Program.refr = true;
                     break;
                 case 0xE:
                     break;

@@ -8,6 +8,7 @@ namespace Chip8Emu
 {
     static class Program
     {
+        public static bool refr = false;
         /// <summary>
         /// Punto di ingresso principale dell'applicazione.
         /// </summary>

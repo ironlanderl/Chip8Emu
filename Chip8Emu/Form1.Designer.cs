@@ -30,56 +30,39 @@ namespace Chip8Emu
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnPixel = new System.Windows.Forms.Button();
             this.pcbSchermo = new System.Windows.Forms.PictureBox();
             this.rtbLog = new System.Windows.Forms.RichTextBox();
-            this.btnClear = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.TestopCode = new System.Windows.Forms.Button();
-            this.tmrDelay = new System.Windows.Forms.Timer(this.components);
-            this.tmrAudio = new System.Windows.Forms.Timer(this.components);
             this.lblDebug = new System.Windows.Forms.Label();
             this.tmrDebug = new System.Windows.Forms.Timer(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.chkRefresh = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pcbSchermo)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnPixel
-            // 
-            this.btnPixel.Location = new System.Drawing.Point(13, 415);
-            this.btnPixel.Name = "btnPixel";
-            this.btnPixel.Size = new System.Drawing.Size(96, 23);
-            this.btnPixel.TabIndex = 0;
-            this.btnPixel.Text = "Random Pixel";
-            this.btnPixel.UseVisualStyleBackColor = true;
-            this.btnPixel.Click += new System.EventHandler(this.btnPixel_Click);
             // 
             // pcbSchermo
             // 
             this.pcbSchermo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pcbSchermo.Location = new System.Drawing.Point(13, 12);
+            this.pcbSchermo.Location = new System.Drawing.Point(12, 27);
             this.pcbSchermo.Name = "pcbSchermo";
             this.pcbSchermo.Size = new System.Drawing.Size(100, 100);
-            this.pcbSchermo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbSchermo.TabIndex = 1;
             this.pcbSchermo.TabStop = false;
             // 
             // rtbLog
             // 
-            this.rtbLog.Location = new System.Drawing.Point(629, 266);
+            this.rtbLog.Location = new System.Drawing.Point(629, 338);
             this.rtbLog.Name = "rtbLog";
-            this.rtbLog.Size = new System.Drawing.Size(159, 172);
+            this.rtbLog.Size = new System.Drawing.Size(159, 100);
             this.rtbLog.TabIndex = 2;
             this.rtbLog.Text = "";
-            // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(115, 415);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(96, 23);
-            this.btnClear.TabIndex = 3;
-            this.btnClear.Text = "Pulisci";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // textBox1
             // 
@@ -98,14 +81,10 @@ namespace Chip8Emu
             this.TestopCode.UseVisualStyleBackColor = true;
             this.TestopCode.Click += new System.EventHandler(this.TestopCode_Click);
             // 
-            // tmrDelay
-            // 
-            this.tmrDelay.Interval = 16;
-            // 
             // lblDebug
             // 
             this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(626, 12);
+            this.lblDebug.Location = new System.Drawing.Point(626, 24);
             this.lblDebug.Name = "lblDebug";
             this.lblDebug.Size = new System.Drawing.Size(35, 13);
             this.lblDebug.TabIndex = 6;
@@ -116,38 +95,109 @@ namespace Chip8Emu
             this.tmrDebug.Enabled = true;
             this.tmrDebug.Tick += new System.EventHandler(this.tmrDebug_Tick);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.testToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.testToolStripMenuItem.Text = "File";
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(12, 415);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 8;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // chkRefresh
+            // 
+            this.chkRefresh.AutoSize = true;
+            this.chkRefresh.Location = new System.Drawing.Point(13, 392);
+            this.chkRefresh.Name = "chkRefresh";
+            this.chkRefresh.Size = new System.Drawing.Size(85, 17);
+            this.chkRefresh.TabIndex = 9;
+            this.chkRefresh.Text = "AutoRefresh";
+            this.chkRefresh.UseVisualStyleBackColor = true;
+            this.chkRefresh.CheckedChanged += new System.EventHandler(this.chkRefresh_CheckedChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(297, 291);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.chkRefresh);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.TestopCode);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.rtbLog);
             this.Controls.Add(this.pcbSchermo);
-            this.Controls.Add(this.btnPixel);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pcbSchermo)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnPixel;
         private System.Windows.Forms.PictureBox pcbSchermo;
         private System.Windows.Forms.RichTextBox rtbLog;
-        private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button TestopCode;
-        private System.Windows.Forms.Timer tmrDelay;
-        private System.Windows.Forms.Timer tmrAudio;
         private System.Windows.Forms.Label lblDebug;
         private System.Windows.Forms.Timer tmrDebug;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.CheckBox chkRefresh;
+        private System.Windows.Forms.Button button1;
     }
 }
 

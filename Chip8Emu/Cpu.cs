@@ -14,7 +14,7 @@ namespace Chip8Emu
         const int lunghezza = 64;
         const int altezza = 32;
 
-        bool[,] screen = new bool[lunghezza, altezza];
+        bool[,] screen = new bool[altezza, lunghezza];
         byte[] RAM = new byte[4096];
         UInt16 PC;
         UInt16 I;
@@ -69,11 +69,24 @@ namespace Chip8Emu
 
         public void Fetch()
         {
-            /* Auto add a 0 at the start, if opcode longer than 4 chars remove first */
-            instruction = "0";
-            instruction += Convert.ToString(RAM[PC], 16);
-            instruction += Convert.ToString(RAM[PC + 1], 16);
-            if (instruction.Length == 5) instruction = instruction.Substring(1);
+            // divide the instruction in 4 parts
+            byte[] opcode = new byte[4];
+            // move left to right
+            opcode[0] = (byte)(RAM[PC] >> 4);
+            // move right to left and back
+            opcode[1] = (byte)(RAM[PC] << 4);
+            opcode[1] = (byte)(opcode[1] >> 4);
+            // move left to right
+            opcode[2] = (byte)(RAM[PC + 1] >> 4);
+            // move right to left and back
+            opcode[3] = (byte)(RAM[PC + 1] << 4);
+            opcode[3] = (byte)(opcode[3] >> 4);
+
+            instruction = "";
+            foreach (var item in opcode)
+            {
+                instruction += Convert.ToString(item, 16);
+            }
             PC += 2;
         }
 
@@ -89,7 +102,7 @@ namespace Chip8Emu
             switch (A)
             {
                 case 0:
-                    if (instruction.ToUpper() == "00E0") screen = new bool[lunghezza, altezza];
+                    if (instruction.ToUpper() == "00E0") screen = new bool[altezza, lunghezza];
                     break;
                 case 1:
                     PC = NNN;
@@ -135,22 +148,28 @@ namespace Chip8Emu
                     byte x = (byte)(registri[X] % lunghezza);
                     byte y = (byte)(registri[Y] % altezza);
                     registri[0xF] = 0;
+
+                    // altezza
                     for (int i = 0; i < N; i++)
                     {
+                        // prendo i dati per la riga 'i' dello sprite
                         bool[] data = ConvertByteToBoolArray(RAM[I + i]);
+                        // scrivo allo schermo in base alla lunghezza
                         for (int j = 0; j < 8; j++)
                         {
+                            // Controllo se esco dallo schermo
                             if (x + j < lunghezza)
                             {
-                                if (data[j] == true)
+                                // controllo se il bit è 1
+                                if (data[j])
                                 {
-                                    if (screen[x + j, y + i] == false)
+                                    if (screen[y + i, x + j] == false)
                                     {
-                                        screen[x + j, y + i] = true;
+                                        screen[y + i, x + j] = true;
                                     }
                                     else
                                     {
-                                        screen[x + j, y + i] = false;
+                                        screen[y + i, x + j] = false;
                                         registri[0xF] = 0x1;
                                     }
                                 }

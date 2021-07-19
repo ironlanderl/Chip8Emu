@@ -18,7 +18,7 @@ namespace Chip8Emu
         byte[] RAM = new byte[4096];
         UInt16 PC;
         UInt16 I;
-        byte[] registri = new byte[16];
+        byte[] V = new byte[16];
         System.Windows.Forms.Timer clock = new System.Windows.Forms.Timer();
         Stack<UInt16> stack = new Stack<ushort>();
         string instruction;
@@ -27,7 +27,7 @@ namespace Chip8Emu
         {
             get
             {
-                return registri;
+                return V;
             }
         }
 
@@ -44,7 +44,29 @@ namespace Chip8Emu
 
         private void LoadFont()
         {
-
+            const int START_INDEX = 0x50;
+            byte[] fontset = {
+    0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
+    0x20, 0x60, 0x20, 0x20, 0x70, // 1
+    0xF0, 0x10, 0xF0, 0x80, 0xF0, // 2
+    0xF0, 0x10, 0xF0, 0x10, 0xF0, // 3
+    0x90, 0x90, 0xF0, 0x10, 0x10, // 4
+    0xF0, 0x80, 0xF0, 0x10, 0xF0, // 5
+    0xF0, 0x80, 0xF0, 0x90, 0xF0, // 6
+    0xF0, 0x10, 0x20, 0x40, 0x40, // 7
+    0xF0, 0x90, 0xF0, 0x90, 0xF0, // 8
+    0xF0, 0x90, 0xF0, 0x10, 0xF0, // 9
+    0xF0, 0x90, 0xF0, 0x90, 0x90, // A
+    0xE0, 0x90, 0xE0, 0x90, 0xE0, // B
+    0xF0, 0x80, 0x80, 0x80, 0xF0, // C
+    0xE0, 0x90, 0x90, 0x90, 0xE0, // D
+    0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
+    0xF0, 0x80, 0xF0, 0x80, 0x80  // F
+            };
+            for (int i = 0; i < fontset.Length; i++)
+            {
+                RAM[START_INDEX + i] = fontset[i];
+            }
         }
 
         public void Start()
@@ -103,37 +125,92 @@ namespace Chip8Emu
             {
                 case 0:
                     if (instruction.ToUpper() == "00E0") screen = new bool[altezza, lunghezza];
+                    if (instruction.ToUpper() == "00EE") PC = stack.Pop();
                     break;
                 case 1:
                     PC = NNN;
                     break;
                 case 2:
+                    stack.Push(PC);
+                    PC = NNN;
                     break;
                 case 3:
-                    if (registri[X] == NN)
+                    if (V[X] == NN)
                     {
                         PC += 2;
                     }
                     break;
                 case 4:
-                    if (registri[X] != NN)
+                    if (V[X] != NN)
                     {
                         PC += 2;
                     }
                     break;
                 case 5:
-                    if (registri[X] == registri[Y])
+                    if (V[X] == V[Y])
                     {
                         PC += 2;
                     }
                     break;
                 case 6:
-                    registri[X] = NN;
+                    V[X] = NN;
                     break;
                 case 7:
-                    registri[X] += NN;
+                    V[X] += NN;
                     break;
                 case 8:
+                    switch (N)
+                    {
+                        case 0:
+                            V[X] = V[Y];
+                            break;
+                        case 1:
+                            V[X] = (byte)(V[X] | V[Y]);
+                            break;
+                        case 2:
+                            V[X] = (byte)(V[X] & V[Y]);
+                            break;
+                        case 3:
+                            V[X] = (byte)(V[X] ^= V[Y]);
+                            break;
+                        case 4:
+                            try
+                            {
+                                checked
+                                {
+                                    V[X] += V[Y];
+                                }
+                            }
+                            catch (OverflowException)
+                            {
+                                V[X] += V[Y];
+                                V[0xf] = 0x1;
+                            }
+                            break;
+                        case 5:
+                            if (V[X] > V[Y])
+                                V[0xf] = 0x1;
+                            try
+                            {
+                                checked
+                                {
+                                    V[X] -= V[Y];
+                                }
+                            }
+                            catch (OverflowException)
+                            {
+                                V[X] -= V[Y];
+                                V[0xf] = 0x0;
+                            }
+                            break;
+                        case 6:
+                            // Save LSB
+                            V[0xf] = (byte)(V[X] << 7);
+                            V[0xf] = (byte)(V[0xf] >> 7);
+                            // Move V[X] to te right
+                            V[X] = (byte)(V[X] >> 1);
+                            break;
+                    }
                     break;
                 case 9:
                     break;
@@ -145,9 +222,9 @@ namespace Chip8Emu
                 case 0xC:
                     break;
                 case 0xD:
-                    byte x = (byte)(registri[X] % lunghezza);
-                    byte y = (byte)(registri[Y] % altezza);
-                    registri[0xF] = 0;
+                    byte x = (byte)(V[X] % lunghezza);
+                    byte y = (byte)(V[Y] % altezza);
+                    V[0xF] = 0;
 
                     // altezza
                     for (int i = 0; i < N; i++)
@@ -170,7 +247,7 @@ namespace Chip8Emu
                                     else
                                     {
                                         screen[y + i, x + j] = false;
-                                        registri[0xF] = 0x1;
+                                        V[0xF] = 0x1;
                                     }
                                 }
                             }

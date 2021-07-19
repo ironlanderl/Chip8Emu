@@ -102,7 +102,7 @@ namespace Chip8Emu
         {
             // Just load the rom
             byte[] ROM;
-            ROM = File.ReadAllBytes(@"C:\path\ibm.ch8");
+            ROM = File.ReadAllBytes(@"C:\path\chip8ufo.ch8");
             cpu.LoadROM(ROM);
         }
     }
